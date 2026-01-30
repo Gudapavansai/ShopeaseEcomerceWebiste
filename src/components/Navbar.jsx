@@ -17,8 +17,8 @@ const Navbar = () => {
 
       {/* Logo */}
      <Link to="/" className="flex items-center">
-        <img src={assets.logo} className="w-20" alt="ShopEase" />
-        <p className="prata-regular text-3xl text-gray-800">ShopEase</p>
+        <img src={assets.logo} className="w-12 sm:w-20" alt="ShopEase" />
+        <p className="prata-regular text-xl sm:text-3xl text-gray-800">ShopEase</p>
      </Link>
 
 
