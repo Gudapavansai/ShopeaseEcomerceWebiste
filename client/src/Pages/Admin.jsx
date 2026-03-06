@@ -449,7 +449,7 @@ const OrdersTab = ({ loading, setLoading }) => {
     setLoading(true);
     try {
       // Fetch all orders from backend
-      const response = await fetch('http://localhost:5000/api/orders/all', {
+      const response = await fetch('https://shopeaseecomercewebiste-1.onrender.com/api/orders/all', {
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('authToken')}`
         }
