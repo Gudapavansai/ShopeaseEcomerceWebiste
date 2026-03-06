@@ -1,5 +1,5 @@
 import React from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 import "./index.css";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -12,16 +12,22 @@ import Contact from "./Pages/Contact";
 import Product from "./Pages/Product";
 import Cart from "./Pages/Cart";
 import Login from "./Pages/Login";
+import Profile from "./Pages/Profile";
 import PlaceOrder from "./Pages/PlaceOrder";
 import Orders from "./Pages/Orders";
+import TrackOrder from "./Pages/TrackOrder";
+import Admin from "./Pages/Admin";
 import Footer from "./components/Footer";
 
 const App = () => {
+  const location = useLocation();
+  const isAdminPage = location.pathname === '/admin';
+
   return (
     <div className="px-4 sm:px-[5vw] md:px-[7vw] lg:px-[9vw]">
-      <ToastContainer />
-      <Navbar />
-      <SearchBar />
+      <ToastContainer />        
+      {!isAdminPage && <Navbar />}
+      {!isAdminPage && <SearchBar />}
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/collection" element={<Collection />} />
@@ -30,10 +36,13 @@ const App = () => {
         <Route path="/product/:productId" element={<Product />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/profile" element={<Profile />} />
         <Route path="/place-order" element={<PlaceOrder />} />
         <Route path="/orders" element={<Orders />} />
+        <Route path="/track-order/:orderId" element={<TrackOrder />} />
+        <Route path="/admin" element={<Admin />} />
       </Routes>
-      <Footer />
+      {!isAdminPage && <Footer />}
     </div>
   );
 };

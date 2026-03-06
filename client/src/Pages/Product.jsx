@@ -4,10 +4,11 @@ import { ShopContext } from '../context/ShopContext';
 import { assets } from '../assets.js';
 import { FaStar } from 'react-icons/fa';
 import RelatedProducts from '../components/RelatedProducts';
+import { toast } from 'react-toastify';
 
 const Product = () => {
   const { productId } = useParams();
-  const { products, currency, addToCart } = useContext(ShopContext);
+  const { products, currency, addToCart, navigate } = useContext(ShopContext);
   const [productData, setProductData] = useState(false);
   const [image, setImage] = useState('');
   const [size, setSize] = useState('');
@@ -38,13 +39,13 @@ const Product = () => {
                 onClick={() => setImage(item)}
                 src={item}
                 key={index}
-                className='w-[24%] sm:w-full sm:mb-3 flex-shrink-0 cursor-pointer'
+                className='w-[24%] sm:w-full sm:mb-3 shrink-0 cursor-pointer object-cover aspect-square rounded-sm'
                 alt=""
               />
             ))}
           </div>
           <div className='w-full sm:w-[80%]'>
-            <img className='w-full h-auto' src={image} alt="" />
+            <img className='w-full h-full object-cover aspect-square rounded-sm' src={image} alt="" />
           </div>
         </div>
 
@@ -75,7 +76,26 @@ const Product = () => {
               ))}
             </div>
           </div>
-          <button onClick={() => addToCart(productData._id, size)} className='bg-black text-white px-8 py-3 text-sm active:bg-gray-700'>ADD TO CART</button>
+          <div className='flex items-center gap-4'>
+            <button 
+              onClick={() => addToCart(productData._id, size)} 
+              className='bg-black text-white px-8 py-3 text-sm active:bg-gray-700 transition-all hover:opacity-90'
+            >
+              ADD TO CART
+            </button>
+            <button 
+              onClick={async () => {
+                if (!size) {
+                  return toast.error('Please select a size first');
+                }
+                await addToCart(productData._id, size);
+                navigate('/place-order');
+              }} 
+              className='bg-orange-600 text-white px-8 py-3 text-sm active:bg-orange-700 transition-all hover:bg-orange-500 shadow-md transform hover:scale-105'
+            >
+              BUY NOW
+            </button>
+          </div>
           <hr className='mt-8 sm:w-4/5' />
           <div className='text-sm text-gray-500 mt-5 flex flex-col gap-1'>
             <p>100% Original product.</p>
