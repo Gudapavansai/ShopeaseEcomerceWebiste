@@ -9,7 +9,7 @@ import { toast } from 'react-toastify';
 const PlaceOrder = () => {
 
     const [showForm, setShowForm] = useState(true);
-    const [saveAddress, setSaveAddress] = useState(true);
+    const [saveAddress] = useState(true);
     const { placeOrder, getDeliveryAddress, saveDeliveryAddress, deliveryAddress, token, navigate } = useContext(ShopContext);
 
     React.useEffect(() => {
@@ -18,6 +18,7 @@ const PlaceOrder = () => {
         } else {
             getDeliveryAddress();
         }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [token]);
 
     const [formData, setFormData] = useState({

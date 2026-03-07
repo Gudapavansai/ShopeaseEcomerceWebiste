@@ -123,7 +123,7 @@ const Profile = () => {
     try {
       const userId = localStorage.getItem('userId');
       // Update basic profile and delivery address
-      const result = await authAPI.updateProfile(userId, {
+      await authAPI.updateProfile(userId, {
         name: formData.name,
         phone: formData.phone,
         // Also save delivery address in same update or separate

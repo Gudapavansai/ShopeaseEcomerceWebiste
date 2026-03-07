@@ -1,14 +1,14 @@
-import { useCallback } from 'react';
+import { useCallback, useState } from 'react';
 
 /**
  * Custom hook for form handling
  * Manages form state and submissions
  */
 export const useForm = (initialState, onSubmit) => {
-  const [formData, setFormData] = React.useState(initialState);
-  const [errors, setErrors] = React.useState({});
-  const [touched, setTouched] = React.useState({});
-  const [isSubmitting, setIsSubmitting] = React.useState(false);
+  const [formData, setFormData] = useState(initialState);
+  const [errors, setErrors] = useState({});
+  const [touched, setTouched] = useState({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleChange = useCallback((e) => {
     const { name, value, type, checked } = e.target;

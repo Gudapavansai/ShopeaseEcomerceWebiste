@@ -162,7 +162,7 @@ class ErrorHandler {
    * Log error for debugging
    */
   static log(error, context = '') {
-    if (process.env.VITE_DEBUG === 'true') {
+    if (import.meta.env.VITE_DEBUG === 'true') {
       console.error(`[Error ${context}]:`, error);
     }
   }

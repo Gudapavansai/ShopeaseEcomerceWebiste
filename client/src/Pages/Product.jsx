@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { ShopContext } from '../context/ShopContext';
-import { assets } from '../assets.js';
+
 import { FaStar } from 'react-icons/fa';
 import RelatedProducts from '../components/RelatedProducts';
 import { toast } from 'react-toastify';
@@ -25,6 +25,7 @@ const Product = () => {
 
   useEffect(() => {
     fetchProductData();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [productId, products]);
 
   return productData ? (

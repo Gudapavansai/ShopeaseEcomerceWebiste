@@ -221,6 +221,13 @@ async function seedDatabase() {
     console.log('✓ Connected to MongoDB');
 
     // Clear existing products
+
+
+
+
+
+
+    
     await Product.deleteMany({});
     console.log('✓ Cleared existing products');
 

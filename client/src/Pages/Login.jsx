@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
+
 import { authAPI } from '../services/api'
 import ErrorHandler from '../utils/errorHandler'
 import Validators from '../utils/validators'
@@ -17,6 +17,7 @@ const Login = () => {
     if (token) {
       navigate('/');
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token]);
 
   // Form state

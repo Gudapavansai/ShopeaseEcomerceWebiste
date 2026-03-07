@@ -1,4 +1,4 @@
-import { useCallback } from 'react';
+import React, { useCallback, useRef, useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 
@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
  */
 export const useLocalStorage = (key, initialValue) => {
   const [storedValue, setStoredValue] = React.useState(() => {
-    try {
+    try { 
       const item = window.localStorage.getItem(key);
       return item ? JSON.parse(item) : initialValue;
     } catch (error) {
@@ -102,13 +102,15 @@ export const useDebounce = (value, delay = 500) => {
  * Custom hook for previous value
  */
 export const usePrevious = (value) => {
-  const ref = React.useRef();
+  const [previous, setPrevious] = useState(undefined);
+  const ref = useRef();
 
-  React.useEffect(() => {
+  useEffect(() => {
+    setPrevious(ref.current);
     ref.current = value;
   }, [value]);
 
-  return ref.current;
+  return previous;
 };
 
 /**

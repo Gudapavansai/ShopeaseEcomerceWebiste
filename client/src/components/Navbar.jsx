@@ -11,21 +11,19 @@ import { toast } from 'react-toastify'
 
 const Navbar = () => {
   const [visible, setVisible] = useState(false)
-  const [user, setUser] = useState(null)
-  const { setShowSearch, getCartCount } = useContext(ShopContext);
-  const navigate = useNavigate();
-
-  // Load user from localStorage on mount
-  useEffect(() => {
+  const [user, setUser] = useState(() => {
     const storedUser = localStorage.getItem('user');
     if (storedUser) {
       try {
-        setUser(JSON.parse(storedUser));
+        return JSON.parse(storedUser);
       } catch (error) {
         console.error('Error parsing user:', error);
       }
     }
-  }, []);
+    return null;
+  });
+  const { setShowSearch, getCartCount } = useContext(ShopContext);
+  const navigate = useNavigate();
 
   // Listen for storage changes (logout from another tab)
   useEffect(() => {
@@ -34,7 +32,8 @@ const Navbar = () => {
       if (storedUser) {
         try {
           setUser(JSON.parse(storedUser));
-        } catch (error) {
+        } catch (_error) {
+          console.error(_error);
           setUser(null);
         }
       } else {

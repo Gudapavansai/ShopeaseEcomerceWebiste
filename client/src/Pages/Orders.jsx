@@ -6,7 +6,7 @@ import { FaChevronRight, FaRegClock, FaReceipt } from 'react-icons/fa'
 
 const Orders = () => {
 
-    const { products, currency, orders, cancelOrder, token, navigate, clearOrders } = useContext(ShopContext);
+    const { currency, orders, cancelOrder, token, navigate, clearOrders } = useContext(ShopContext);
     const [isClearModalOpen, setIsClearModalOpen] = useState(false);
     const [orderToCancel, setOrderToCancel] = useState(null);
 
@@ -14,6 +14,7 @@ const Orders = () => {
         if (!token) {
             navigate('/login');
         }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [token]);
 
     return (
@@ -51,7 +52,7 @@ const Orders = () => {
             <div className='flex flex-col gap-16'>
                 {
                     orders && orders.length > 0 ? (
-                        orders.map((order, orderIndex) => (
+                        orders.map((order) => (
                             <div key={order._id} className='animate-fadeIn'>
                                 {/* Order Header Details */}
                                 <div className='flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 px-4 py-3 bg-gray-50 rounded-sm gap-4'>

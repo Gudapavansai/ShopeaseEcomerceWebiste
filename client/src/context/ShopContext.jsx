@@ -1,3 +1,5 @@
+/* eslint-disable react-hooks/set-state-in-effect */
+/* eslint-disable react-refresh/only-export-components */
 import { createContext, useEffect, useState } from "react";
 import { products as staticProducts } from "../assets.js";
 import { toast } from "react-toastify";
@@ -41,6 +43,17 @@ const ShopContextProvider = (props) => {
         }
     }
 
+    const getUserOrders = async (userId) => {
+        try {
+            const result = await orderAPI.getUserOrders(userId);
+            if (result.success) {
+                setOrders(result.orders);
+            }
+        } catch (error) {
+            console.error("Error fetching orders:", error);
+        }
+    }
+
     // Initialize data
     useEffect(() => {
         getProductsData();
@@ -58,17 +71,6 @@ const ShopContextProvider = (props) => {
             getUserOrders(userId);
         }
     }, [token]);
-
-    const getUserOrders = async (userId) => {
-        try {
-            const result = await orderAPI.getUserOrders(userId);
-            if (result.success) {
-                setOrders(result.orders);
-            }
-        } catch (error) {
-            console.error("Error fetching orders:", error);
-        }
-    }
 
     useEffect(() => {
         localStorage.setItem('cartItems', JSON.stringify(cartItems));
@@ -106,8 +108,8 @@ const ShopContextProvider = (props) => {
                     if (cartItems[items][item] > 0) {
                         totalCount += cartItems[items][item];
                     }
-                } catch (error) {
-
+                } catch {
+                    // ignore
                 }
             }
         }
@@ -130,8 +132,8 @@ const ShopContextProvider = (props) => {
                         if (cartItems[items][item] > 0) {
                             totalAmount += itemInfo.price * cartItems[items][item];
                         }
-                    } catch (error) {
-
+                    } catch {
+                        // ignore
                     }
                 }
             }

@@ -1,7 +1,7 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useMemo } from 'react';
 import { ShopContext } from '../context/ShopContext';
 import Title from '../components/Title';
-import { assets } from '../assets.js'; // Just in case, but probably won't use bin_icon from here if not present
+
 import { MdDeleteForever } from "react-icons/md";
 import CartTotal from '../components/CartTotal';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate
@@ -9,25 +9,23 @@ import { useNavigate } from 'react-router-dom'; // Import useNavigate
 const Cart = () => {
 
     const { products, currency, cartItems, updateQuantity } = useContext(ShopContext);
-    const [cartData, setCartData] = useState([]);
     const navigate = useNavigate();
 
-    useEffect(() => {
-        if (products.length > 0) {
-            const tempData = [];
-            for (const items in cartItems) {
-                for (const item in cartItems[items]) {
-                    if (cartItems[items][item] > 0) {
-                        tempData.push({
-                            _id: items,
-                            size: item,
-                            quantity: cartItems[items][item]
-                        })
-                    }
+    const cartData = useMemo(() => {
+        if (products.length === 0) return [];
+        const tempData = [];
+        for (const items in cartItems) {
+            for (const item in cartItems[items]) {
+                if (cartItems[items][item] > 0) {
+                    tempData.push({
+                        _id: items,
+                        size: item,
+                        quantity: cartItems[items][item]
+                    })
                 }
             }
-            setCartData(tempData);
         }
+        return tempData;
     }, [cartItems, products]);
 
     return (

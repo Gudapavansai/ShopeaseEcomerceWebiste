@@ -360,6 +360,7 @@ const ListProductsTab = ({ loading, setLoading }) => {
 
   useEffect(() => {
     fetchProducts();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const fetchProducts = async () => {
@@ -367,8 +368,8 @@ const ListProductsTab = ({ loading, setLoading }) => {
     try {
       const result = await adminAPI.getAll();
       setProducts(result.products || []);
-    } catch (error) {
-      ErrorHandler.handle(error);
+    } catch (_error) {
+      ErrorHandler.handle(_error);
     } finally {
       setLoading(false);
     }
@@ -443,6 +444,7 @@ const OrdersTab = ({ loading, setLoading }) => {
 
   useEffect(() => {
     fetchAllOrders();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const fetchAllOrders = async () => {
@@ -456,8 +458,9 @@ const OrdersTab = ({ loading, setLoading }) => {
       });
       const result = await response.json();
       setOrders(result.orders || []);
-    } catch (error) {
+    } catch (err) {
       // If endpoint doesn't exist, show empty state
+      console.error(err);
       setOrders([]);
     } finally {
       setLoading(false);
